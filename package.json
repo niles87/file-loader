@@ -1,0 +1,34 @@
+{
+  "name": "file-loader",
+  "version": "1.0.0",
+  "description": "graphql file uploader",
+  "main": "server/api.js",
+  "scripts": {
+    "start": "if-env NODE_ENV=production && npm run start:prod || npm run start:dev",
+    "start:prod": "cd server && npm start",
+    "start:dev": "concurrently \"cd server && npm run watch\" \"cd client && npm start\"",
+    "install": "cd server && npm i && cd ../client && npm i",
+    "heroku-postbuild": "cd client && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/niles87/file-loader.git"
+  },
+  "keywords": [
+    "apollo-server",
+    "express",
+    "file-upload"
+  ],
+  "author": "niles87",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/niles87/file-loader/issues"
+  },
+  "homepage": "https://github.com/niles87/file-loader#readme",
+  "dependencies": {
+    "if-env": "^1.0.4"
+  },
+  "devDependencies": {
+    "concurrently": "^5.2.0"
+  }
+}
