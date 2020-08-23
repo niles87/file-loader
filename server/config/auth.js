@@ -9,7 +9,7 @@ module.exports = {
     let token = req.body.token || req.params.token || req.headers.authorization;
 
     if (req.headers.authorization) {
-      token = split(" ").pop().trim();
+      token = token.split(" ").pop().trim();
     }
     if (!token) return req;
 
@@ -23,7 +23,7 @@ module.exports = {
   },
   signToken: function ({ username, email, _id }) {
     const payload = { username, email, _id };
-
-    jwt.sign({ data: payload }, secret, { expiresIn: experation });
+    console.log(payload);
+    return jwt.sign({ data: payload }, secret, { expiresIn: experation });
   },
 };

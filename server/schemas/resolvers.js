@@ -1,6 +1,7 @@
 const { AuthenticationError } = require("apollo-server-express");
 const { User } = require("../models");
-const { signToken } = require("../utils/auth");
+const { signToken } = require("../config/auth");
+const { createWriteStream } = require("fs");
 
 const resolvers = {
   Query: {
@@ -18,10 +19,17 @@ const resolvers = {
   },
   Mutation: {
     addUser: async (parent, args) => {
-      const user = await User.create(args);
-      const token = signToken(user);
+      const { username, email, password } = args;
+      console.log(username, email, password);
+      const user = await User.create({ username, email, password });
 
+      const token = await signToken({
+        username: user.username,
+        email: user.email,
+        _id: user._id,
+      });
       return { token, user };
+      // return "hello";
     },
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
@@ -32,16 +40,30 @@ const resolvers = {
 
       if (!checkPass) throw new AuthenticationError("incorrect creds");
 
-      const token = signToken(user);
+      const token = signToken({
+        username: user.username,
+        email: user.email,
+        _id: user._id,
+      });
 
       return { token, user };
     },
-    saveImage: async (parent, { imageData }, context) => {
+    saveImage: async (parent, { image }, context) => {
       if (context.user) {
+        const { createReadStream, filename } = await image;
+
+        await new Promise((res) => {
+          createReadStream()
+            .pipe(
+              createWriteStream(path.join(__dirname, "../images", filename))
+            )
+            .on("close", res);
+        });
+
         const updated = await User.findOneAndUpdate(
           { _id: context.user._id },
           {
-            $push: { saveImage: imageData },
+            $push: { images: filename },
           },
           { new: true }
         );
@@ -66,3 +88,5 @@ const resolvers = {
     },
   },
 };
+
+module.exports = resolvers;

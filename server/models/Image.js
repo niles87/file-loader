@@ -4,7 +4,7 @@ const ImageSchema = new Schema({
   title: {
     type: String,
   },
-  link: {
+  path: {
     type: String,
   },
 });
