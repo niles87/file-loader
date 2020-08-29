@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   FormContainer,
   FormInput,
@@ -17,6 +17,8 @@ export const SignUp = () => {
   });
 
   const [addUser, { error }] = useMutation(ADD_USER);
+
+  useEffect(() => (error ? console.log(error) : console.log("ok")), [error]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;

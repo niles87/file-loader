@@ -2,8 +2,8 @@ import gql from "graphql-tag";
 
 export const QUERY_SELF = gql`
   {
-    user {
-      _id
+    self {
+      id
       username
       email
       imageList

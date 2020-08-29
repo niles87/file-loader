@@ -5,7 +5,7 @@ export const USER_LOGIN = gql`
     login(email: $email, password: $password) {
       token
       user {
-        _id
+        id
         username
       }
     }
@@ -17,7 +17,7 @@ export const ADD_USER = gql`
     addUser(username: $username, email: $email, password: $password) {
       token
       user {
-        _id
+        id
         username
       }
     }
@@ -25,9 +25,9 @@ export const ADD_USER = gql`
 `;
 
 export const SAVE_IMG = gql`
-  mutation saveImage($image: Upload!) {
+  mutation saveImage($image: Upload) {
     saveImage(image: $image) {
-      _id
+      id
       username
       email
       images {
@@ -41,7 +41,7 @@ export const SAVE_IMG = gql`
 export const REMOVE_IMG = gql`
   mutation removeImage($id: ID) {
     removeImage(id: $id) {
-      _id
+      id
       username
       email
       images {

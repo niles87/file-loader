@@ -7,6 +7,7 @@ const resolvers = {
   Query: {
     self: async (parent, args, context) => {
       if (context.user) {
+        console.log(context.user);
         const userData = await User.findById({ _id: context.user._id }).select(
           "-__v -password"
         );
@@ -49,28 +50,27 @@ const resolvers = {
       return { token, user };
     },
     saveImage: async (parent, { image }, context) => {
-      if (context.user) {
-        const { createReadStream, filename } = await image;
+      // if (context.user) {
+      console.log(context);
+      const { createReadStream, filename } = await image;
 
-        await new Promise((res) => {
-          createReadStream()
-            .pipe(
-              createWriteStream(path.join(__dirname, "../images", filename))
-            )
-            .on("close", res);
-        });
+      await new Promise((res) => {
+        createReadStream()
+          .pipe(createWriteStream(path.join(__dirname, "../images", filename)))
+          .on("close", res);
+      });
 
-        const updated = await User.findOneAndUpdate(
-          { _id: context.user._id },
-          {
-            $push: { images: filename },
-          },
-          { new: true }
-        );
+      const updated = await User.findOneAndUpdate(
+        { _id: context.user._id },
+        {
+          $push: { images: filename },
+        },
+        { new: true }
+      );
 
-        return updated;
-      }
-      throw new AuthenticationError("You need to be logged in for that.");
+      return updated;
+      // }
+      // throw new AuthenticationError("You need to be logged in for that.");
     },
     removeImage: async (parent, { id }, context) => {
       if (context.user) {

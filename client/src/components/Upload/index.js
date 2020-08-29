@@ -11,8 +11,8 @@ export const Upload = () => {
   });
 
   const onDrop = useCallback(
-    ([file]) => {
-      saveImage({ variables: { file } });
+    async ([file]) => {
+      await saveImage({ variables: { file } });
     },
     [saveImage]
   );
