@@ -12,7 +12,7 @@ export const Upload = () => {
 
   const onDrop = useCallback(
     async ([file]) => {
-      await saveImage({ variables: { file } });
+      await saveImage({ variables: { image: file } });
     },
     [saveImage]
   );

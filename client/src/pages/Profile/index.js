@@ -5,7 +5,6 @@ import { Album } from "../../components/Album";
 export const Profile = () => {
   return (
     <Fragment>
-      <h1>Welcome xxxx</h1>
       <Upload />
       <Album />
     </Fragment>

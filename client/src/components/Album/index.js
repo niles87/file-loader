@@ -10,14 +10,14 @@ export const Album = () => {
 
   return (
     <Fragment>
-      {/* {data.imageList > 0
-        ? data.images.map((el) => (
-            <Card>
-              <X style={{ color: "red" }} />
+      {data.self.imageList > 0
+        ? data.self.images.map((el) => (
+            <Card key={el.title}>
+              <X style={{ color: "red", fontWeight: "bold", fontSize: 25 }} />
               <Image src={el.path} style={{ width: 200 }} alt={el.title} />
             </Card>
           ))
-        : ""} */}
+        : ""}
     </Fragment>
   );
 };
