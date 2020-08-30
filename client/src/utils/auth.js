@@ -7,7 +7,7 @@ class AuthService {
 
   loggedIn() {
     const token = this.getToken();
-    return !token && !this.tokenExpired(token);
+    return token && this.tokenExpired(token);
   }
 
   tokenExpired(token) {
@@ -26,7 +26,7 @@ class AuthService {
 
   login(idToken) {
     localStorage.setItem("id_token", idToken);
-    window.location.assign("/");
+    window.location.assign("/profile");
   }
 
   logout() {

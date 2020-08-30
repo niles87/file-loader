@@ -9,5 +9,5 @@ export const Image = (props) => {
 };
 
 export const X = (props) => {
-  return <span {...props}>X</span>;
+  return <button {...props}>X</button>;
 };

@@ -8,6 +8,7 @@ export const QUERY_SELF = gql`
       email
       imageList
       images {
+        id
         title
         path
       }

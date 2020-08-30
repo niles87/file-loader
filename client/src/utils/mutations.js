@@ -31,6 +31,7 @@ export const SAVE_IMG = gql`
       username
       email
       images {
+        id
         title
         path
       }
@@ -45,6 +46,7 @@ export const REMOVE_IMG = gql`
       username
       email
       images {
+        id
         title
         path
       }
