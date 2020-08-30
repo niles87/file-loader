@@ -1,7 +1,8 @@
 const { AuthenticationError } = require("apollo-server-express");
 const { User } = require("../models");
 const { signToken } = require("../config/auth");
-const { createWriteStream } = require("fs");
+const { createWriteStream, createReadStream } = require("fs");
+const path = require("path");
 
 const resolvers = {
   Query: {
@@ -50,26 +51,30 @@ const resolvers = {
       return { token, user };
     },
     saveImage: async (parent, { image }, context) => {
-      // if (context.user) {
-      console.log(context);
-      const { createReadStream, filename } = await image;
+      console.log(context.user);
+      if (context.user) {
+        const { createReadStream, filename } = await image;
+        console.log(filename);
+        await new Promise((res) => {
+          createReadStream()
+            .pipe(
+              createWriteStream(
+                path.join(__dirname, "../../client/public/images", filename)
+              )
+            )
+            .on("close", res);
+        });
 
-      await new Promise((res) => {
-        createReadStream()
-          .pipe(createWriteStream(path.join(__dirname, "../images", filename)))
-          .on("close", res);
-      });
+        const updated = await User.findOneAndUpdate(
+          { _id: context.user._id },
+          {
+            $push: { images: { title: filename, path: `/images/${filename}` } },
+          },
+          { new: true }
+        );
 
-      const updated = await User.findOneAndUpdate(
-        { _id: context.user._id },
-        {
-          $push: { images: filename },
-        },
-        { new: true }
-      );
-
-      return updated;
-      // }
+        return updated;
+      }
       // throw new AuthenticationError("You need to be logged in for that.");
     },
     removeImage: async (parent, { id }, context) => {

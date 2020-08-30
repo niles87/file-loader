@@ -20,11 +20,6 @@ const typeDefs = gql`
     user: User
   }
 
-  # input imageInput {
-  #  title: String
-  #  path: String
-  # }
-
   type Query {
     self: User
   }
