@@ -1,8 +1,12 @@
 const { AuthenticationError } = require("apollo-server-express");
 const { User } = require("../models");
 const { signToken } = require("../config/auth");
-const { createWriteStream, createReadStream } = require("fs");
+const { createWriteStream, unlink } = require("fs");
 const path = require("path");
+require("dotenv").config();
+const cloudinary = require("cloudinary").v2;
+
+console.log(cloudinary.config());
 
 const resolvers = {
   Query: {
@@ -31,7 +35,6 @@ const resolvers = {
         _id: user._id,
       });
       return { token, user };
-      // return "hello";
     },
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
@@ -58,35 +61,69 @@ const resolvers = {
         await new Promise((res) => {
           createReadStream()
             .pipe(
-              createWriteStream(
-                path.join(__dirname, "../../client/public/images", filename)
-              )
+              createWriteStream(path.join(__dirname, "../../images", filename))
             )
             .on("close", res);
         });
 
+        const upload = await cloudinary.uploader.upload(
+          `../images/${filename}`,
+          (error, result) => {
+            if (error) console.error(error);
+            return result;
+          }
+        );
+
+        console.log(upload);
+        const name = filename.slice(0, filename.indexOf("."));
+
         const updated = await User.findOneAndUpdate(
           { _id: context.user._id },
           {
-            $push: { images: { title: filename, path: `/images/${filename}` } },
+            $push: {
+              images: {
+                title: name,
+                path: upload.url,
+                publicId: upload.public_id,
+              },
+            },
           },
           { new: true }
         );
 
+        const removeFile = await unlink(
+          path.join(__dirname, "../../images", filename),
+          (err) => {
+            if (err) console.error(err);
+            return;
+          }
+        );
+
         return updated;
       }
-      // throw new AuthenticationError("You need to be logged in for that.");
+      throw new AuthenticationError("You need to be logged in for that.");
     },
     removeImage: async (parent, { id }, context) => {
       if (context.user) {
         const updated = await User.findOneAndUpdate(
           { _id: context.user._id },
           {
-            $pull: { saveImage: id },
+            $pull: { images: { _id: id } },
           },
           { new: true }
         );
-
+        console.log("-------------------------");
+        console.log(updated.images.publicId);
+        console.log("-------------------------");
+        // const pubId = updated.images.publicId;
+        // const deleted = await cloudinary.uploader.destroy(
+        //   pubId,
+        //   (err, result) => {
+        //     if (err) console.error(err);
+        //     return result;
+        //   }
+        // );
+        // console.log(deleted);
         return updated;
       }
       throw new AuthenticationError("You need to be logged in for that.");

@@ -7,6 +7,9 @@ const ImageSchema = new Schema({
   path: {
     type: String,
   },
+  publicId: {
+    type: String,
+  },
 });
 
 module.exports = ImageSchema;
