@@ -7,7 +7,7 @@ const ImageSchema = new Schema({
   path: {
     type: String,
   },
-  publicId: {
+  imgId: {
     type: String,
   },
 });

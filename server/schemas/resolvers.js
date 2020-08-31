@@ -26,7 +26,7 @@ const resolvers = {
   Mutation: {
     addUser: async (parent, args) => {
       const { username, email, password } = args;
-      console.log(username, email, password);
+
       const user = await User.create({ username, email, password });
 
       const token = await signToken({
@@ -57,7 +57,7 @@ const resolvers = {
       console.log(context.user);
       if (context.user) {
         const { createReadStream, filename } = await image;
-        console.log(filename);
+
         await new Promise((res) => {
           createReadStream()
             .pipe(
@@ -74,7 +74,6 @@ const resolvers = {
           }
         );
 
-        console.log(upload);
         const name = filename.slice(0, filename.indexOf("."));
 
         const updated = await User.findOneAndUpdate(
@@ -84,7 +83,7 @@ const resolvers = {
               images: {
                 title: name,
                 path: upload.url,
-                publicId: upload.public_id,
+                imgId: upload.public_id,
               },
             },
           },
@@ -103,7 +102,7 @@ const resolvers = {
       }
       throw new AuthenticationError("You need to be logged in for that.");
     },
-    removeImage: async (parent, { id }, context) => {
+    removeImage: async (parent, { id, imgId }, context) => {
       if (context.user) {
         const updated = await User.findOneAndUpdate(
           { _id: context.user._id },
@@ -112,18 +111,15 @@ const resolvers = {
           },
           { new: true }
         );
-        console.log("-------------------------");
-        console.log(updated.images.publicId);
-        console.log("-------------------------");
-        // const pubId = updated.images.publicId;
-        // const deleted = await cloudinary.uploader.destroy(
-        //   pubId,
-        //   (err, result) => {
-        //     if (err) console.error(err);
-        //     return result;
-        //   }
-        // );
-        // console.log(deleted);
+
+        const deleted = await cloudinary.uploader.destroy(
+          imgId,
+          (err, result) => {
+            if (err) console.error(err);
+            return result;
+          }
+        );
+
         return updated;
       }
       throw new AuthenticationError("You need to be logged in for that.");

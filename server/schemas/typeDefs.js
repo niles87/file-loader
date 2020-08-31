@@ -13,6 +13,7 @@ const typeDefs = gql`
     id: ID!
     title: String
     path: String
+    imgId: String
   }
 
   type Auth {
@@ -28,7 +29,7 @@ const typeDefs = gql`
     addUser(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
     saveImage(image: Upload): User
-    removeImage(id: ID!): User
+    removeImage(id: ID!, imgId: String): User
   }
 `;
 
