@@ -34,14 +34,15 @@ export const SAVE_IMG = gql`
         id
         title
         path
+        imgId
       }
     }
   }
 `;
 
 export const REMOVE_IMG = gql`
-  mutation removeImage($id: ID) {
-    removeImage(id: $id) {
+  mutation removeImage($id: ID!, $imgId: String) {
+    removeImage(id: $id, imgId: $imgId) {
       id
       username
       email
@@ -49,6 +50,7 @@ export const REMOVE_IMG = gql`
         id
         title
         path
+        imgId
       }
     }
   }

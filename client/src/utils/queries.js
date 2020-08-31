@@ -11,6 +11,7 @@ export const QUERY_SELF = gql`
         id
         title
         path
+        imgId
       }
     }
   }
