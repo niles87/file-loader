@@ -11,14 +11,13 @@ export const Album = () => {
 
   if (loading) return <div>Loading...</div>;
 
-  const deleteImg = async (id) => {
-    const token = Auth.loggedIn() ? Auth.getToken() : null;
-    console.log(token);
-    if (!token) return false;
-    console.log("clicked");
+  const deleteImg = async (id, imgId) => {
+    const token = Auth.getToken();
+
+    if (Auth.loggedIn(token)) return false;
+
     try {
-      const { data } = await removeImg({ variables: { id } });
-      console.log(data);
+      const { data } = await removeImg({ variables: { id, imgId } });
     } catch (error) {
       console.error(error);
     }
@@ -31,9 +30,13 @@ export const Album = () => {
             <Card key={el.title}>
               <X
                 style={{ color: "red", fontWeight: "bold", fontSize: 25 }}
-                onClick={() => deleteImg(el.id)}
+                onClick={() => deleteImg(el.id, el.imgId)}
               />
-              <Image src={el.path} style={{ width: 200 }} alt={el.title} />
+              <Image
+                src={el.path}
+                style={{ width: 200, height: 200 }}
+                alt={el.title}
+              />
             </Card>
           ))
         : ""}
