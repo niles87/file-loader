@@ -23,7 +23,7 @@ export const Login = () => {
   const formSubmit = async (ev) => {
     ev.preventDefault();
 
-    const form = ev.currentTarget;
+    // const form = ev.currentTarget;
 
     try {
       const { data } = await login({ variables: { ...formData } });
@@ -44,7 +44,7 @@ export const Login = () => {
       <FormContainer onSubmit={formSubmit}>
         <div>
           <FormLabel>
-            Email:{" "}
+            Email{" "}
             <FormInput
               type="email"
               name="email"
@@ -55,7 +55,7 @@ export const Login = () => {
         </div>
         <div>
           <FormLabel>
-            Password:{" "}
+            Password{" "}
             <FormInput
               type="password"
               name="password"

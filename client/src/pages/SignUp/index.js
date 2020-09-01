@@ -42,7 +42,7 @@ export const SignUp = () => {
       <FormContainer onSubmit={handleFormSubmit}>
         <div>
           <FormLabel>
-            Username:{" "}
+            Username{" "}
             <FormInput
               type="text"
               name="username"
@@ -54,7 +54,7 @@ export const SignUp = () => {
         </div>
         <div>
           <FormLabel>
-            Email:{" "}
+            Email{" "}
             <FormInput
               type="email"
               name="email"
@@ -66,7 +66,7 @@ export const SignUp = () => {
         </div>
         <div>
           <FormLabel>
-            Password:{" "}
+            Password{" "}
             <FormInput
               type="password"
               name="password"

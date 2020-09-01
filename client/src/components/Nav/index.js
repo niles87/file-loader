@@ -8,11 +8,11 @@ export const Nav = () => {
         <Link to="/profile" className="link">
           Profile
         </Link>
-        <span> | </span>
+        <span>|</span>
         <Link to="/register" className="link">
           Register
         </Link>
-        <span> | </span>
+        <span>|</span>
         <Link to="/login" className="link">
           Login
         </Link>

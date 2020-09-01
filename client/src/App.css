@@ -1,38 +1,132 @@
+:root {
+  --link-color: #84a98c;
+  --bg-color: #cad2c5;
+  --accent-color: #52796f;
+  --element-bg-color: #354f52;
+  --font-color: #2f3e46;
+}
+/* #root */
 .App {
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--bg-color);
+  overflow: scroll;
+}
+
+.App::-webkit-scrollbar {
+  width: 5px;
+  opacity: 0.25;
+}
+
+.App::-webkit-scrollbar-track:no-button {
+  box-shadow: inset 0 0 3px var(--element-bg-color);
+  opacity: 0.25;
+}
+
+.App::-webkit-scrollbar-thumb {
+  box-shadow: inset 0 0 3px var(--font-color);
+  border-radius: 5px;
+  opacity: 0.25;
+}
+
+.App::-webkit-scrollbar-corner {
+  display: none;
+}
+
+.nav {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  background-color: var(--element-bg-color);
+}
+
+.nav span {
+  padding: 5px;
+  color: var(--font-color);
+}
+
+.nav .link {
+  padding: 5px;
+  text-decoration: none;
+  color: var(--link-color);
+}
+
+.container {
+  max-width: 80vw;
+  margin: 0px auto;
+}
+
+/* Forms */
+
+form {
+  position: absolute;
+  top: 25%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-width: 220px;
+}
+
+label {
+  display: flex;
+  justify-content: space-between;
+}
+
+input {
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  border-color: var(--font-color);
+  background-color: var(--bg-color);
+  margin-left: 5px;
+  margin-bottom: 5px;
+}
+
+button {
+  background-color: var(--element-bg-color);
+  color: var(--link-color);
+  border-radius: 5px;
+}
+
+/* Profile */
+
+.upload {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.upload p {
+  color: var(--font-color);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+#imgContainer {
+  width: 100%;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  flex-wrap: wrap;
 }
 
-.App-link {
-  color: #61dafb;
+#imgContainer .card {
+  width: 300px;
+  height: 350px;
+  border-color: var(--font-color);
+  border: solid 1px;
+  border-radius: 5px;
+  margin: 5px;
+  position: relative;
+  box-shadow: 2px 2px 4px var(--font-color), 2px 2px 4px var(--font-color),
+    2px 2px 4px var(--font-color);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.card .delete {
+  color: #ff0000;
+  font-weight: bold;
+  font-size: 20px;
+  position: absolute;
+  top: 1px;
+  right: 7px;
+  cursor: pointer;
+}
+
+.card .img {
+  border-radius: 5px;
+  width: 100%;
+  height: 100%;
 }

@@ -11,6 +11,8 @@ export const Album = () => {
 
   if (loading) return <div>Loading...</div>;
 
+  if (error) console.error(error);
+
   const deleteImg = async (id, imgId) => {
     const token = Auth.getToken();
 
@@ -18,6 +20,7 @@ export const Album = () => {
 
     try {
       const { data } = await removeImg({ variables: { id, imgId } });
+      console.log(data);
     } catch (error) {
       console.error(error);
     }
@@ -27,16 +30,12 @@ export const Album = () => {
     <Fragment>
       {data.self.imageList > 0
         ? data.self.images.map((el) => (
-            <Card key={el.title}>
+            <Card className="card" key={el.title}>
               <X
-                style={{ color: "red", fontWeight: "bold", fontSize: 25 }}
+                className="delete"
                 onClick={() => deleteImg(el.id, el.imgId)}
               />
-              <Image
-                src={el.path}
-                style={{ width: 200, height: 200 }}
-                alt={el.title}
-              />
+              <Image className="img" src={el.path} alt={el.title} />
             </Card>
           ))
         : ""}
