@@ -8,6 +8,7 @@ import {
 } from "../../components/Form";
 import { USER_LOGIN } from "../../utils/mutations";
 import Auth from "../../utils/auth";
+import { Link } from "react-router-dom";
 
 export const Login = () => {
   const [formData, setFormData] = useState({ email: "", password: "" });
@@ -22,8 +23,6 @@ export const Login = () => {
 
   const formSubmit = async (ev) => {
     ev.preventDefault();
-
-    // const form = ev.currentTarget;
 
     try {
       const { data } = await login({ variables: { ...formData } });
@@ -40,7 +39,8 @@ export const Login = () => {
   };
 
   return (
-    <div>
+    <div className="login">
+      <h1>Login</h1>
       <FormContainer onSubmit={formSubmit}>
         <div>
           <FormLabel>
@@ -66,6 +66,15 @@ export const Login = () => {
         </div>
         <Button type="submit">Login</Button>
       </FormContainer>
+      <div>
+        <p>
+          Not a member?{" "}
+          <Link className="link" to="/register">
+            Sign up
+          </Link>{" "}
+          here.
+        </p>
+      </div>
     </div>
   );
 };
