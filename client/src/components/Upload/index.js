@@ -3,7 +3,6 @@ import { useDropzone } from "react-dropzone";
 import { useMutation } from "@apollo/react-hooks";
 import { SAVE_IMG } from "../../utils/mutations";
 import { QUERY_SELF } from "../../utils/queries";
-// import { FormInput } from "../Form/index";
 
 export const Upload = () => {
   const [saveImage] = useMutation(SAVE_IMG, {

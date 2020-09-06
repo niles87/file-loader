@@ -13,7 +13,7 @@ export const Nav = () => {
           Register
         </Link>
         <span>|</span>
-        <Link to="/login" className="link">
+        <Link to="/" className="link">
           Login
         </Link>
       </nav>

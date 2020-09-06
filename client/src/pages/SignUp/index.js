@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import {
   FormContainer,
   FormInput,
@@ -38,7 +39,8 @@ export const SignUp = () => {
   };
 
   return (
-    <div>
+    <div className="signup">
+      <h3>Sign Up</h3>
       <FormContainer onSubmit={handleFormSubmit}>
         <div>
           <FormLabel>
@@ -78,6 +80,15 @@ export const SignUp = () => {
         </div>
         <Button type="submit">SignUp</Button>
       </FormContainer>
+      <div>
+        <p>
+          Already a member?{" "}
+          <Link className="link" to="/">
+            Login
+          </Link>{" "}
+          here.
+        </p>
+      </div>
     </div>
   );
 };
