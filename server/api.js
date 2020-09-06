@@ -8,7 +8,7 @@ const { authMiddleWare } = require("./config/auth");
 const db = require("./config/connection");
 
 const app = express();
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 
 existsSync(path.join(__dirname, "../images")) ||
   mkdirSync(path.join(__dirname, "../images"));
