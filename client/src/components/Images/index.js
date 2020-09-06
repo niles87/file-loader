@@ -5,7 +5,7 @@ export const Card = (props) => {
 };
 
 export const Image = (props) => {
-  return <img {...props} />;
+  return <img {...props} alt={props.alt} />;
 };
 
 export const X = (props) => {

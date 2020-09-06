@@ -12,7 +12,6 @@ const resolvers = {
   Query: {
     self: async (parent, args, context) => {
       if (context.user) {
-        console.log(context.user);
         const userData = await User.findById({ _id: context.user._id }).select(
           "-__v -password"
         );
@@ -54,7 +53,6 @@ const resolvers = {
       return { token, user };
     },
     saveImage: async (parent, { image }, context) => {
-      console.log(context.user);
       if (context.user) {
         const { createReadStream, filename } = await image;
 
