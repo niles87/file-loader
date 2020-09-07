@@ -12,8 +12,6 @@ const PORT = process.env.PORT || 3001;
 
 existsSync(path.join(__dirname, "../images")) ||
   mkdirSync(path.join(__dirname, "../images"));
-app.use(express.urlencoded({ extended: false }));
-app.use(express.json());
 
 const server = new ApolloServer({
   typeDefs,
@@ -22,6 +20,9 @@ const server = new ApolloServer({
 });
 
 server.applyMiddleware({ app });
+
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static("client/build"));
