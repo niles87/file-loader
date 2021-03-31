@@ -1,9 +1,9 @@
-import React, { Fragment } from "react";
-import { useQuery } from "@apollo/react-hooks";
-import { Upload } from "../../components/Upload";
-import { Album } from "../../components/Album";
-import { Container } from "../../components/Container";
-import { QUERY_SELF } from "../../utils/queries";
+import React, { Fragment } from 'react';
+import { useQuery } from '@apollo/react-hooks';
+import { Upload } from '../../components/Upload';
+import { Album } from '../../components/Album';
+import { Container } from '../../components/Container';
+import { QUERY_SELF } from '../../utils/queries';
 
 export const Profile = () => {
   const { data, loading } = useQuery(QUERY_SELF);
@@ -13,7 +13,7 @@ export const Profile = () => {
   return (
     <Fragment>
       <Upload />
-      <Container id="imgContainer">
+      <Container id='imgContainer'>
         <Album />
       </Container>
     </Fragment>

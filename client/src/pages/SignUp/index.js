@@ -1,25 +1,25 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import {
   FormContainer,
   FormInput,
   FormLabel,
   Button,
-} from "../../components/Form";
-import { useMutation } from "@apollo/react-hooks";
-import Auth from "../../utils/auth";
-import { ADD_USER } from "../../utils/mutations";
+} from '../../components/Form';
+import { useMutation } from '@apollo/react-hooks';
+import Auth from '../../utils/auth';
+import { ADD_USER } from '../../utils/mutations';
 
 export const SignUp = () => {
   const [formData, setFormData] = useState({
-    username: "",
-    email: "",
-    password: "",
+    username: '',
+    email: '',
+    password: '',
   });
 
   const [addUser, { error }] = useMutation(ADD_USER);
 
-  useEffect(() => (error ? console.log(error) : console.log("ok")), [error]);
+  useEffect(() => (error ? console.log(error) : console.log('ok')), [error]);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -35,19 +35,19 @@ export const SignUp = () => {
     } catch (error) {
       console.error(error);
     }
-    setFormData({ username: "", email: "", password: "" });
+    setFormData({ username: '', email: '', password: '' });
   };
 
   return (
-    <div className="signup">
+    <div className='signup'>
       <h3>Sign Up</h3>
       <FormContainer onSubmit={handleFormSubmit}>
         <div>
           <FormLabel>
-            Username{" "}
+            Username{' '}
             <FormInput
-              type="text"
-              name="username"
+              type='text'
+              name='username'
               onChange={handleInputChange}
               value={formData.username}
               required
@@ -56,10 +56,10 @@ export const SignUp = () => {
         </div>
         <div>
           <FormLabel>
-            Email{" "}
+            Email{' '}
             <FormInput
-              type="email"
-              name="email"
+              type='email'
+              name='email'
               onChange={handleInputChange}
               value={formData.email}
               required
@@ -68,24 +68,24 @@ export const SignUp = () => {
         </div>
         <div>
           <FormLabel>
-            Password{" "}
+            Password{' '}
             <FormInput
-              type="password"
-              name="password"
+              type='password'
+              name='password'
               onChange={handleInputChange}
               value={formData.password}
               required
             />
           </FormLabel>
         </div>
-        <Button type="submit">SignUp</Button>
+        <Button type='submit'>SignUp</Button>
       </FormContainer>
       <div>
         <p>
-          Already a member?{" "}
-          <Link className="link" to="/">
+          Already a member?{' '}
+          <Link className='link' to='/'>
             Login
-          </Link>{" "}
+          </Link>{' '}
           here.
         </p>
       </div>

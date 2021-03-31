@@ -1,8 +1,8 @@
-import React, { useCallback } from "react";
-import { useDropzone } from "react-dropzone";
-import { useMutation } from "@apollo/react-hooks";
-import { SAVE_IMG } from "../../utils/mutations";
-import { QUERY_SELF } from "../../utils/queries";
+import React, { useCallback } from 'react';
+import { useDropzone } from 'react-dropzone';
+import { useMutation } from '@apollo/react-hooks';
+import { SAVE_IMG } from '../../utils/mutations';
+import { QUERY_SELF } from '../../utils/queries';
 
 export const Upload = () => {
   const [saveImage] = useMutation(SAVE_IMG, {
@@ -19,7 +19,7 @@ export const Upload = () => {
   const { getInputProps, getRootProps, isDragActive } = useDropzone({ onDrop });
 
   return (
-    <div className="upload">
+    <div className='upload'>
       <div {...getRootProps()}>
         <input {...getInputProps()} />
         {isDragActive ? (

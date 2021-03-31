@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
 
 export const Container = (props) => {
   return (
-    <div className="container" {...props}>
+    <div className='container' {...props}>
       {props.children}
     </div>
   );

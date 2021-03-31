@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from "react";
-import { useMutation } from "@apollo/react-hooks";
+import React, { useState, useEffect } from 'react';
+import { useMutation } from '@apollo/react-hooks';
 import {
   FormContainer,
   FormLabel,
   FormInput,
   Button,
-} from "../../components/Form";
-import { USER_LOGIN } from "../../utils/mutations";
-import Auth from "../../utils/auth";
-import { Link } from "react-router-dom";
+} from '../../components/Form';
+import { USER_LOGIN } from '../../utils/mutations';
+import Auth from '../../utils/auth';
+import { Link } from 'react-router-dom';
 
 export const Login = () => {
-  const [formData, setFormData] = useState({ email: "", password: "" });
+  const [formData, setFormData] = useState({ email: '', password: '' });
   const [login, { error }] = useMutation(USER_LOGIN);
 
-  useEffect(() => (error ? console.log(error) : console.log("ok")), [error]);
+  useEffect(() => (error ? console.log(error) : console.log('ok')), [error]);
 
   const handleInputChange = (ev) => {
     const { name, value } = ev.target;
@@ -33,21 +33,21 @@ export const Login = () => {
     }
 
     setFormData({
-      email: "",
-      password: "",
+      email: '',
+      password: '',
     });
   };
 
   return (
-    <div className="login">
+    <div className='login'>
       <h3>Login</h3>
       <FormContainer onSubmit={formSubmit}>
         <div>
           <FormLabel>
-            Email{" "}
+            Email{' '}
             <FormInput
-              type="email"
-              name="email"
+              type='email'
+              name='email'
               onChange={handleInputChange}
               value={formData.email}
             />
@@ -55,23 +55,23 @@ export const Login = () => {
         </div>
         <div>
           <FormLabel>
-            Password{" "}
+            Password{' '}
             <FormInput
-              type="password"
-              name="password"
+              type='password'
+              name='password'
               onChange={handleInputChange}
               value={formData.password}
             />
           </FormLabel>
         </div>
-        <Button type="submit">Login</Button>
+        <Button type='submit'>Login</Button>
       </FormContainer>
       <div>
         <p>
-          Not a member?{" "}
-          <Link className="link" to="/register">
+          Not a member?{' '}
+          <Link className='link' to='/register'>
             Sign up
-          </Link>{" "}
+          </Link>{' '}
           here.
         </p>
       </div>
