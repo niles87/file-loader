@@ -1,7 +1,7 @@
-const { Schema, model } = require("mongoose");
-const bcrypt = require("bcrypt");
+const { Schema, model } = require('mongoose');
+const bcrypt = require('bcrypt');
 
-const ImageSchema = require("./Image");
+const ImageSchema = require('./Image');
 
 const UserSchema = new Schema(
   {
@@ -15,7 +15,7 @@ const UserSchema = new Schema(
       type: String,
       required: true,
       unique: true,
-      match: [/.+@.+\..+/, "Must be valid email"],
+      match: [/.+@.+\..+/, 'Must be valid email'],
     },
     password: {
       type: String,
@@ -31,8 +31,8 @@ const UserSchema = new Schema(
   }
 );
 
-UserSchema.pre("save", async function (next) {
-  if (this.isNew || this.isModified("password")) {
+UserSchema.pre('save', async function (next) {
+  if (this.isNew || this.isModified('password')) {
     const salt = 12;
     this.password = await bcrypt.hash(this.password, salt);
   }
@@ -43,10 +43,10 @@ UserSchema.methods.comparePassword = async function (password) {
   return await bcrypt.compare(password, this.password);
 };
 
-UserSchema.virtual("imageList").get(function () {
+UserSchema.virtual('imageList').get(function () {
   return this.images.length;
 });
 
-const User = model("User", UserSchema);
+const User = model('User', UserSchema);
 
 module.exports = User;

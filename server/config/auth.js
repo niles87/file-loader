@@ -1,15 +1,15 @@
-const jwt = require("jsonwebtoken");
-require("dotenv").config();
+const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 const secret = process.env.MY_SECRET;
-const experation = "2h";
+const experation = '2h';
 
 module.exports = {
   authMiddleWare: function ({ req }) {
     let token = req.body.token || req.params.token || req.headers.authorization;
 
     if (req.headers.authorization) {
-      token = token.split(" ").pop().trim();
+      token = token.split(' ').pop().trim();
     }
     if (!token) return req;
 

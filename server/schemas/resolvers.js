@@ -1,10 +1,10 @@
-const { AuthenticationError } = require("apollo-server-express");
-const { User } = require("../models");
-const { signToken } = require("../config/auth");
-const { createWriteStream, unlink } = require("fs");
-const path = require("path");
-require("dotenv").config();
-const cloudinary = require("cloudinary").v2;
+const { AuthenticationError } = require('apollo-server-express');
+const { User } = require('../models');
+const { signToken } = require('../config/auth');
+const { createWriteStream, unlink } = require('fs');
+const path = require('path');
+require('dotenv').config();
+const cloudinary = require('cloudinary').v2;
 
 console.log(cloudinary.config());
 
@@ -13,13 +13,13 @@ const resolvers = {
     self: async (parent, args, context) => {
       if (context.user) {
         const userData = await User.findById({ _id: context.user._id }).select(
-          "-__v -password"
+          '-__v -password'
         );
 
         return userData;
       }
 
-      return new AuthenticationError("Need to be logged in");
+      return new AuthenticationError('Need to be logged in');
     },
   },
   Mutation: {
@@ -38,11 +38,11 @@ const resolvers = {
     login: async (parent, { email, password }) => {
       const user = await User.findOne({ email });
 
-      if (!user) throw new AuthenticationError("incorrect creds");
+      if (!user) throw new AuthenticationError('incorrect creds');
 
       const checkPass = await user.comparePassword(password);
 
-      if (!checkPass) throw new AuthenticationError("incorrect creds");
+      if (!checkPass) throw new AuthenticationError('incorrect creds');
 
       const token = signToken({
         username: user.username,
@@ -59,9 +59,9 @@ const resolvers = {
         await new Promise((res) => {
           createReadStream()
             .pipe(
-              createWriteStream(path.join(__dirname, "../../images", filename))
+              createWriteStream(path.join(__dirname, '../../images', filename))
             )
-            .on("close", res);
+            .on('close', res);
         });
 
         const upload = await cloudinary.uploader.upload(
@@ -72,7 +72,7 @@ const resolvers = {
           }
         );
 
-        const name = filename.slice(0, filename.indexOf("."));
+        const name = filename.slice(0, filename.indexOf('.'));
 
         const updated = await User.findOneAndUpdate(
           { _id: context.user._id },
@@ -89,7 +89,7 @@ const resolvers = {
         );
 
         const removeFile = await unlink(
-          path.join(__dirname, "../../images", filename),
+          path.join(__dirname, '../../images', filename),
           (err) => {
             if (err) console.error(err);
             return;
@@ -98,7 +98,7 @@ const resolvers = {
 
         return updated;
       }
-      throw new AuthenticationError("You need to be logged in for that.");
+      throw new AuthenticationError('You need to be logged in for that.');
     },
     removeImage: async (parent, { id, imgId }, context) => {
       if (context.user) {
@@ -120,7 +120,7 @@ const resolvers = {
 
         return updated;
       }
-      throw new AuthenticationError("You need to be logged in for that.");
+      throw new AuthenticationError('You need to be logged in for that.');
     },
   },
 };
